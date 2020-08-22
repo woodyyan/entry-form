@@ -2,7 +2,6 @@ package com.huawei.refactoring;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -52,52 +51,18 @@ public class EntryForm {
                      boolean isBringingDiseaseAgents, boolean isBringSoil, boolean isClosedLivingStock,
                      boolean isCarrying10KCash, boolean isCarryingCommercialsMerchandise, double totalValueOfAllArticle) {
         this.firstName = notNull(firstName, "first name can't be blank");
-
-        //姓不可为空
         this.lastName = notNull(lastName, "last name can't be blank");
-        this.lastName = lastName;
-        //中间名可为空
-        if (middleName == null) {
-            this.middleName = "";
-        } else {
-            this.middleName = middleName;
-        }
-        //生日不能为空
-        if (birthday == null) throw new IllegalArgumentException("birthday can't be null");
-        //生日要早于今天
-        if (birthday.isAfter(LocalDate.now())) throw new IllegalArgumentException("birthday should before today");
-        this.birthday = birthday;
-        //随行家庭成员不能为负数
-        if (numberOfFamilyMember < 0) throw new IllegalArgumentException("number of family can't be negative");
-        this.numberOfFamilyMember = numberOfFamilyMember;
-        //美国地址不能为空
+        this.middleName = couldBeNull(middleName);
+        this.birthday = afterToday(notNull(birthday, "birthday can't be null"));
+        this.numberOfFamilyMember = notNegative(numberOfFamilyMember, "number of family can't be negative");
         this.address = notNull(address, "address can't be blank");
-        //美国地址城市不能为空
         this.city = notNull(city, "city can't be blank");
-        //美国地址洲不能为空
         this.state = notNull(state, "state can't be blank");
-        this.address = address;
-        this.city = city;
-        this.state = state;
-        //护照签发地不能为空
         this.passportIssuePlace = notNull(passportIssuePlace, "passportIssuePlace can't be blank");
-        this.passportIssuePlace = passportIssuePlace;
-        //护照号不能为空
         this.passportNumber = notNull(passportNumber, "passportNumber can't be blank");
-        this.passportNumber = passportNumber;
-        //居住国不能为空
         this.countryOfResident = notNull(countryOfResident, "countryOfResident can't be blank");
-        this.countryOfResident = countryOfResident;
-        //之前访问国家可为空
-        if (countriesVisited == null) {
-            this.countriesVisited = Collections.emptyList();
-        } else {
-            this.countriesVisited = countriesVisited;
-        }
-        //航班号访问国家不能为空
+        this.countriesVisited = couldBeNull(countriesVisited);
         this.flightNumber = notNull(flightNumber, "flightNumber can't be blank");
-        this.flightNumber = flightNumber;
-
         this.isBusinessTrip = isBusinessTrip;
         this.isBringingFruits = isBringingFruits;
         this.isBringingMeats = isBringingMeats;
@@ -106,9 +71,43 @@ public class EntryForm {
         this.isClosedLivingStock = isClosedLivingStock;
         this.isCarrying10KCash = isCarrying10KCash;
         this.isCarryingCommercialsMerchandise = isCarryingCommercialsMerchandise;
-        //携带物品总价不能为负数
-        if (totalValueOfAllArticle < 0) throw new IllegalArgumentException("totalValueOfAllArticle can't be negative");
-        this.totalValueOfAllArticle = totalValueOfAllArticle;
+        this.totalValueOfAllArticle = notNegative(totalValueOfAllArticle, "totalValueOfAllArticle can't be negative");
+    }
+
+    private List<String> couldBeNull(List<String> list) {
+        if (list == null) {
+            return Collections.emptyList();
+        } else {
+            return list;
+        }
+    }
+
+    private int notNegative(int value, String message) {
+        if (value < 0) throw new IllegalArgumentException(message);
+        return value;
+    }
+
+    private double notNegative(double value, String message) {
+        if (value < 0) throw new IllegalArgumentException(message);
+        return value;
+    }
+
+    private LocalDate afterToday(LocalDate birthday) {
+        if (birthday.isAfter(LocalDate.now())) throw new IllegalArgumentException("birthday should before today");
+        return birthday;
+    }
+
+    private LocalDate notNull(LocalDate localDate, String message) {
+        if (localDate == null) throw new IllegalArgumentException(message);
+        return localDate;
+    }
+
+    private String couldBeNull(String value) {
+        if (value == null) {
+            return "";
+        } else {
+            return value;
+        }
     }
 
     private String notNull(String value, String message) {
