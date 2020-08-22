@@ -3,6 +3,7 @@ package com.huawei.refactoring;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class EntryForm {
@@ -50,12 +51,10 @@ public class EntryForm {
                      boolean isBusinessTrip, boolean isBringingFruits, boolean isBringingMeats,
                      boolean isBringingDiseaseAgents, boolean isBringSoil, boolean isClosedLivingStock,
                      boolean isCarrying10KCash, boolean isCarryingCommercialsMerchandise, double totalValueOfAllArticle) {
-        //名不可为空
-        if (firstName == null || "".equals(firstName)) throw new IllegalArgumentException("first name can't be blank");
-        this.firstName = firstName;
+        this.firstName = notNull(firstName, "first name can't be blank");
 
         //姓不可为空
-        if (lastName == null || "".equals(lastName)) throw new IllegalArgumentException("last name can't be blank");
+        this.lastName = notNull(lastName, "last name can't be blank");
         this.lastName = lastName;
         //中间名可为空
         if (middleName == null) {
@@ -72,35 +71,31 @@ public class EntryForm {
         if (numberOfFamilyMember < 0) throw new IllegalArgumentException("number of family can't be negative");
         this.numberOfFamilyMember = numberOfFamilyMember;
         //美国地址不能为空
-        if (address == null || "".equals(address)) throw new IllegalArgumentException("address can't be blank");
+        this.address = notNull(address, "address can't be blank");
         //美国地址城市不能为空
-        if (city == null || "".equals(city)) throw new IllegalArgumentException("city can't be blank");
+        this.city = notNull(city, "city can't be blank");
         //美国地址洲不能为空
-        if (state == null || "".equals(state)) throw new IllegalArgumentException("state can't be blank");
+        this.state = notNull(state, "state can't be blank");
         this.address = address;
         this.city = city;
         this.state = state;
         //护照签发地不能为空
-        if (passportIssuePlace == null || "".equals(passportIssuePlace))
-            throw new IllegalArgumentException("passportIssuePlace can't be blank");
+        this.passportIssuePlace = notNull(passportIssuePlace, "passportIssuePlace can't be blank");
         this.passportIssuePlace = passportIssuePlace;
         //护照号不能为空
-        if (passportNumber == null || "".equals(passportNumber))
-            throw new IllegalArgumentException("passportNumber can't be blank");
+        this.passportNumber = notNull(passportNumber, "passportNumber can't be blank");
         this.passportNumber = passportNumber;
         //居住国不能为空
-        if (countryOfResident == null || "".equals(countryOfResident))
-            throw new IllegalArgumentException("countryOfResident can't be blank");
+        this.countryOfResident = notNull(countryOfResident, "countryOfResident can't be blank");
         this.countryOfResident = countryOfResident;
         //之前访问国家可为空
         if (countriesVisited == null) {
-            this.countriesVisited = Arrays.asList();
+            this.countriesVisited = Collections.emptyList();
         } else {
             this.countriesVisited = countriesVisited;
         }
         //航班号访问国家不能为空
-        if (flightNumber == null || "".equals(flightNumber))
-            throw new IllegalArgumentException("flightNumber can't be blank");
+        this.flightNumber = notNull(flightNumber, "flightNumber can't be blank");
         this.flightNumber = flightNumber;
 
         this.isBusinessTrip = isBusinessTrip;
@@ -114,6 +109,11 @@ public class EntryForm {
         //携带物品总价不能为负数
         if (totalValueOfAllArticle < 0) throw new IllegalArgumentException("totalValueOfAllArticle can't be negative");
         this.totalValueOfAllArticle = totalValueOfAllArticle;
+    }
+
+    private String notNull(String value, String message) {
+        if (value == null || "".equals(value)) throw new IllegalArgumentException(message);
+        return value;
     }
 
     public String getFirstName() {
@@ -241,9 +241,9 @@ public class EntryForm {
         }
 
 
-            //是否允许带10K现金
-            if (isCarrying10KCash && !supplementalInformation.isCarrying10KOK())
-                throw new RejectedException("too much money");
+        //是否允许带10K现金
+        if (isCarrying10KCash && !supplementalInformation.isCarrying10KOK())
+            throw new RejectedException("too much money");
 
 
         //如果18岁以下，监护人需要被允许入境
