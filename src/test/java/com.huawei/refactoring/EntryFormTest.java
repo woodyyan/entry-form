@@ -6,6 +6,7 @@ import com.huawei.refactoring.form.BelongingDeclaration;
 import com.huawei.refactoring.form.Itinerary;
 import com.huawei.refactoring.form.Name;
 import com.huawei.refactoring.form.Passport;
+import com.huawei.refactoring.form.ValuableArticle;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -21,14 +22,14 @@ public class EntryFormTest {
         EntryForm parent = new EntryForm(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", "China"),
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
                 Collections.singletonList("China"), "CA850", false),
-            new BelongingDeclaration(false, false, false, false), false, false,
-            false, 0.0);
+            new BelongingDeclaration(false, false, false, false),
+            new ValuableArticle(false, false, 0.0), false);
 
         EntryForm child = new EntryForm(new Passport(new Name("Shisan", "Zhang", ""), LocalDate.of(2009, 6, 4), "Beijing", "E43241345", "China"),
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
                 Collections.singletonList("China"), "CA850", false),
-            new BelongingDeclaration(false, false, false, false), false, false,
-            false, 0.0);
+            new BelongingDeclaration(false, false, false, false),
+            new ValuableArticle(false, false, 0.0), false);
 
         SupplementalInformation parentSupplemental = new SupplementalInformation(
             new HashMap<>(), false, false, false, false, false, false
@@ -47,14 +48,14 @@ public class EntryFormTest {
         EntryForm parent = new EntryForm(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", "China"),
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
                 Collections.singletonList("China"), "CA850", false),
-            new BelongingDeclaration(false, false, false, false), false, true,
-            false, 0.0);
+            new BelongingDeclaration(false, false, false, false),
+            new ValuableArticle(true, false, 0.0), false);
 
         EntryForm child = new EntryForm(new Passport(new Name("Shisan", "Zhang", ""), LocalDate.of(2009, 6, 4), "Beijing", "E43241345", "China"),
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
                 Collections.singletonList("China"), "CA850", false),
-            new BelongingDeclaration(false, false, false, false), false, false,
-            false, 0.0);
+            new BelongingDeclaration(false, false, false, false),
+            new ValuableArticle(false, false, 0.0), false);
 
         SupplementalInformation parentSupplemental = new SupplementalInformation(
             new HashMap<>(), false, false, false, false, false, false
@@ -82,8 +83,8 @@ public class EntryFormTest {
         new EntryForm(new Passport(new Name("", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", "China"),
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
                 Collections.singletonList("China"), "CA850", false),
-            new BelongingDeclaration(false, false, false, false), false, false,
-            false, 0.0);
+            new BelongingDeclaration(false, false, false, false),
+            new ValuableArticle(false, false, 0.0), false);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -91,8 +92,8 @@ public class EntryFormTest {
         new EntryForm(new Passport(new Name("San", "", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", "China"),
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
                 Collections.singletonList("China"), "CA850", false),
-            new BelongingDeclaration(false, false, false, false), false, false,
-            false, 0.0);
+            new BelongingDeclaration(false, false, false, false),
+            new ValuableArticle(false, false, 0.0), false);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -100,8 +101,8 @@ public class EntryFormTest {
         new EntryForm(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", "China"),
             new Itinerary(new Address("", "Chicago", "IL"), 1,
                 Collections.singletonList("China"), "CA850", false),
-            new BelongingDeclaration(false, false, false, false), false, false,
-            false, 0.0);
+            new BelongingDeclaration(false, false, false, false),
+            new ValuableArticle(false, false, 0.0), false);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -109,8 +110,8 @@ public class EntryFormTest {
         new EntryForm(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", "China"),
             new Itinerary(new Address("200 Main Street", "", "IL"), 1,
                 Collections.singletonList("China"), "CA850", false),
-            new BelongingDeclaration(false, false, false, false), false, false,
-            false, 0.0);
+            new BelongingDeclaration(false, false, false, false),
+            new ValuableArticle(false, false, 0.0), false);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -118,8 +119,8 @@ public class EntryFormTest {
         new EntryForm(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", "China"),
             new Itinerary(new Address("200 Main Street", "Chicago", ""), 1,
                 Collections.singletonList("China"), "CA850", false),
-            new BelongingDeclaration(false, false, false, false), false, false,
-            false, 0.0);
+            new BelongingDeclaration(false, false, false, false),
+            new ValuableArticle(false, false, 0.0), false);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -127,8 +128,8 @@ public class EntryFormTest {
         new EntryForm(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "", "E47652345", "China"),
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
                 Collections.singletonList("China"), "CA850", false),
-            new BelongingDeclaration(false, false, false, false), false, false,
-            false, 0.0);
+            new BelongingDeclaration(false, false, false, false),
+            new ValuableArticle(false, false, 0.0), false);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -136,8 +137,8 @@ public class EntryFormTest {
         new EntryForm(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "", "China"),
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
                 Collections.singletonList("China"), "CA850", false),
-            new BelongingDeclaration(false, false, false, false), false, false,
-            false, 0.0);
+            new BelongingDeclaration(false, false, false, false),
+            new ValuableArticle(false, false, 0.0), false);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -145,8 +146,8 @@ public class EntryFormTest {
         new EntryForm(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", ""),
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
                 Collections.singletonList("China"), "CA850", false),
-            new BelongingDeclaration(false, false, false, false), false, false,
-            false, 0.0);
+            new BelongingDeclaration(false, false, false, false),
+            new ValuableArticle(false, false, 0.0), false);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -154,8 +155,8 @@ public class EntryFormTest {
         new EntryForm(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", "China"),
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
                 Collections.singletonList("China"), "", false),
-            new BelongingDeclaration(false, false, false, false), false, false,
-            false, 0.0);
+            new BelongingDeclaration(false, false, false, false),
+            new ValuableArticle(false, false, 0.0), false);
     }
 
     @Test
@@ -163,8 +164,8 @@ public class EntryFormTest {
         EntryForm form = new EntryForm(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", "China"),
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
                 Collections.singletonList("China"), "CA850", false),
-            new BelongingDeclaration(false, false, false, false), false, false,
-            false, 0.0);
+            new BelongingDeclaration(false, false, false, false),
+            new ValuableArticle(false, false, 0.0), false);
 
         assertThat(form.getPassport().getName().getMiddleName(), is(""));
     }
@@ -174,8 +175,8 @@ public class EntryFormTest {
         EntryForm form = new EntryForm(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", "China"),
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
                 null, "CA850", false),
-            new BelongingDeclaration(false, false, false, false), false, false,
-            false, 0.0);
+            new BelongingDeclaration(false, false, false, false),
+            new ValuableArticle(false, false, 0.0), false);
 
         assertThat(form.getItinerary().getCountriesVisited().size(), is(0));
     }

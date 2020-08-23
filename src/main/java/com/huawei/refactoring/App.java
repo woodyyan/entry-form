@@ -5,6 +5,7 @@ import com.huawei.refactoring.form.BelongingDeclaration;
 import com.huawei.refactoring.form.Itinerary;
 import com.huawei.refactoring.form.Name;
 import com.huawei.refactoring.form.Passport;
+import com.huawei.refactoring.form.ValuableArticle;
 
 import java.time.LocalDate;
 import java.util.Collections;
@@ -19,18 +20,16 @@ public class App {
 
     private static void rejected() {
         EntryForm parent = new EntryForm(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", "China"),
-            new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
-                Collections.singletonList("China"), "CA850", false),
-            new BelongingDeclaration(false,
-                false, false, false), false, true,
-            false, 0.0);
+            new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1, Collections.singletonList("China"), "CA850", false),
+            new BelongingDeclaration(false, false, false, false),
+            new ValuableArticle(true, false, 0.0),
+            false);
 
         EntryForm child = new EntryForm(new Passport(new Name("Shisan", "Zhang", ""), LocalDate.of(2009, 6, 4), "Beijing", "E43241345", "China"),
-            new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
-                Collections.singletonList("China"), "CA850", false),
-            new BelongingDeclaration(false,
-                false, false, false), false, false,
-            false, 0.0);
+            new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1, Collections.singletonList("China"), "CA850", false),
+            new BelongingDeclaration(false, false, false, false),
+            new ValuableArticle(false, false, 0.0),
+            false);
 
         SupplementalInformation parentSupplemental = new SupplementalInformation(
             new HashMap<>(), false, false, false, false, false, false
@@ -46,16 +45,17 @@ public class App {
 
     private static void approved() {
         EntryForm parent = new EntryForm(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", "China"),
-            new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
-                Collections.singletonList("China"), "CA850", false),
-            new BelongingDeclaration(false, false, false, false), false, false,
-            false, 0.0);
+            new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1, Collections.singletonList("China"), "CA850", false),
+            new BelongingDeclaration(false, false, false, false),
+            new ValuableArticle(false, false, 0.0),
+            false);
 
         EntryForm child = new EntryForm(new Passport(new Name("Shisan", "Zhang", ""), LocalDate.of(1989, 6, 4), "Beijing", "E43241345", "China"),
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
                 Collections.singletonList("China"), "CA850", false),
-            new BelongingDeclaration(false, false, false, false), false, false,
-            false, 0.0);
+            new BelongingDeclaration(false, false, false, false),
+            new ValuableArticle(false, false, 0.0),
+            false);
 
         SupplementalInformation parentSupplemental = new SupplementalInformation(
             new HashMap<>(), false, false, false, false, false, false
@@ -94,9 +94,9 @@ public class App {
         System.out.println("         Meats          : " + form.getBelongingDeclaration().hasMeats());
         System.out.println("         Disease Agents : " + form.getBelongingDeclaration().hasDiseaseAgents());
         System.out.println("         Soil           : " + form.getBelongingDeclaration().hasSoil());
-        System.out.println("Carrying 10K Cash: " + form.isCarrying10KCash());
+        System.out.println("Carrying 10K Cash: " + form.getValuableArticle().isCarrying10KCash());
         System.out.println("Is Closed Living Stockings: " + form.isClosedLivingStock());
-        System.out.println("Carrying Commercials Merchandise : " + form.isCarryingCommercialsMerchandise());
-        System.out.println("Total Value of all Article : " + form.getTotalValueOfAllArticle());
+        System.out.println("Carrying Commercials Merchandise : " + form.getValuableArticle().isCarryingCommercialsMerchandise());
+        System.out.println("Total Value of all Article : " + form.getValuableArticle().getTotalValueOfAllArticle());
     }
 }

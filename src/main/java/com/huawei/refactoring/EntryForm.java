@@ -3,43 +3,33 @@ package com.huawei.refactoring;
 import com.huawei.refactoring.form.BelongingDeclaration;
 import com.huawei.refactoring.form.Itinerary;
 import com.huawei.refactoring.form.Passport;
+import com.huawei.refactoring.form.ValuableArticle;
 
 import java.time.LocalDate;
 import java.time.Period;
 
-import static com.huawei.refactoring.form.Validators.notNegative;
-
 public class EntryForm {
-    private Passport passport;
-    private Itinerary itinerary;
-    private BelongingDeclaration belongingDeclaration;
+    private final Passport passport;
+    private final Itinerary itinerary;
+    private final ValuableArticle valuableArticle;
+    private final BelongingDeclaration belongingDeclaration;
 
     //表格问题 12
-    private boolean isClosedLivingStock;
-    //表格问题 13
-    private boolean isCarrying10KCash;
-    //表格问题 14
-    private boolean isCarryingCommercialsMerchandise;
-    //表格问题 15
-    private double totalValueOfAllArticle;
+    private final boolean isClosedLivingStock;
 
-    public EntryForm(Passport passport, Itinerary itinerary, BelongingDeclaration belongingDeclaration, boolean isClosedLivingStock,
-                     boolean isCarrying10KCash, boolean isCarryingCommercialsMerchandise, double totalValueOfAllArticle) {
+    public EntryForm(Passport passport, Itinerary itinerary,
+                     BelongingDeclaration belongingDeclaration,
+                     ValuableArticle valuableArticle,
+                     boolean isClosedLivingStock) {
         this.passport = passport;
         this.itinerary = itinerary;
         this.belongingDeclaration = belongingDeclaration;
         this.isClosedLivingStock = isClosedLivingStock;
-        this.isCarrying10KCash = isCarrying10KCash;
-        this.isCarryingCommercialsMerchandise = isCarryingCommercialsMerchandise;
-        this.totalValueOfAllArticle = notNegative(totalValueOfAllArticle, "totalValueOfAllArticle can't be negative");
+        this.valuableArticle = valuableArticle;
     }
 
     public Passport getPassport() {
         return passport;
-    }
-
-    public double getTotalValueOfAllArticle() {
-        return totalValueOfAllArticle;
     }
 
     public Itinerary getItinerary() {
@@ -52,14 +42,6 @@ public class EntryForm {
 
     public boolean isClosedLivingStock() {
         return isClosedLivingStock;
-    }
-
-    public boolean isCarrying10KCash() {
-        return isCarrying10KCash;
-    }
-
-    public boolean isCarryingCommercialsMerchandise() {
-        return isCarryingCommercialsMerchandise;
     }
 
     public boolean isApproved(SupplementalInformation supplementalInformation) {
@@ -87,10 +69,10 @@ public class EntryForm {
         }
 
         //全家出行总财产
-        double total = totalValueOfAllArticle;
+        double total = this.valuableArticle.getTotalValueOfAllArticle();
         if (this.itinerary.getNumberOfFamilyMember() > 0) {
             for (EntryForm form : supplementalInformation.getFamilyMembers()) {
-                total += form.getTotalValueOfAllArticle();
+                total += form.getValuableArticle().getTotalValueOfAllArticle();
             }
         }
         //商务出行，全家可携超过某数额的财产
@@ -102,7 +84,7 @@ public class EntryForm {
 
 
         //是否允许带10K现金
-        if (isCarrying10KCash && !supplementalInformation.isCarrying10KOK())
+        if (this.getValuableArticle().isCarrying10KCash() && !supplementalInformation.isCarrying10KOK())
             throw new RejectedException("too much money");
 
 
@@ -123,15 +105,21 @@ public class EntryForm {
         }
 
         //商务旅行携带商业产品不总价不能超过400
-        if (this.itinerary.isBusinessTrip() && isCarryingCommercialsMerchandise && totalValueOfAllArticle > 400) {
+        if (this.itinerary.isBusinessTrip()
+            && this.valuableArticle.isCarryingCommercialsMerchandise()
+            && this.valuableArticle.getTotalValueOfAllArticle() > 400) {
             throw new RejectedException("too much money");
         }
         //非商务旅行严禁携带商业产品
-        if (!this.itinerary.isBusinessTrip() && isCarryingCommercialsMerchandise)
+        if (!this.itinerary.isBusinessTrip() && this.valuableArticle.isCarryingCommercialsMerchandise())
             throw new RejectedException("commercial merchandise not allowed");
 
         //其他校验
 
         return true;
+    }
+
+    public ValuableArticle getValuableArticle() {
+        return valuableArticle;
     }
 }
