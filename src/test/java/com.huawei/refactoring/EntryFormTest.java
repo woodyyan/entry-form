@@ -73,22 +73,6 @@ public class EntryFormTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void should_not_accept_empty_as_first_name() {
-        new EntryForm(new Passport(new Name("", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", "China"),
-            CHICAGO_NON_BUSINESS_ITINERARY,
-            NOTHING_TO_DECLARATION,
-            NO_VALUABLE_ARTICLE, false);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void should_not_accept_empty_as_last_name() {
-        new EntryForm(new Passport(new Name("San", "", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", "China"),
-            CHICAGO_NON_BUSINESS_ITINERARY,
-            NOTHING_TO_DECLARATION,
-            NO_VALUABLE_ARTICLE, false);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
     public void should_not_accept_empty_as_address() {
         new EntryForm(ZHANG_SAN_PASSPORT,
             new Itinerary(new Address("", "Chicago", "IL"), 1,
@@ -116,46 +100,12 @@ public class EntryFormTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void should_not_accept_empty_as_issue_place() {
-        new EntryForm(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "", "E47652345", "China"),
-            CHICAGO_NON_BUSINESS_ITINERARY,
-            NOTHING_TO_DECLARATION,
-            NO_VALUABLE_ARTICLE, false);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void should_not_accept_empty_as_passport_number() {
-        new EntryForm(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "", "China"),
-            CHICAGO_NON_BUSINESS_ITINERARY,
-            NOTHING_TO_DECLARATION,
-            NO_VALUABLE_ARTICLE, false);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void should_not_accept_empty_as_country_of_resident() {
-        new EntryForm(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", ""),
-            CHICAGO_NON_BUSINESS_ITINERARY,
-            NOTHING_TO_DECLARATION,
-            NO_VALUABLE_ARTICLE, false);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
     public void should_not_accept_empty_as_flight_number() {
         new EntryForm(ZHANG_SAN_PASSPORT,
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
                 Collections.singletonList("China"), "", false),
             NOTHING_TO_DECLARATION,
             NO_VALUABLE_ARTICLE, false);
-    }
-
-    @Test
-    public void should_accept_empty_as_middle_name() {
-        EntryForm form = new EntryForm(ZHANG_SAN_PASSPORT,
-            CHICAGO_NON_BUSINESS_ITINERARY,
-            NOTHING_TO_DECLARATION,
-            NO_VALUABLE_ARTICLE, false);
-
-        assertThat(form.getPassport().getName().getMiddleName(), is(""));
     }
 
     @Test
