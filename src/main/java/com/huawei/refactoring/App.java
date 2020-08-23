@@ -1,6 +1,7 @@
 package com.huawei.refactoring;
 
 import com.huawei.refactoring.form.Address;
+import com.huawei.refactoring.form.BelongingDeclaration;
 import com.huawei.refactoring.form.Itinerary;
 import com.huawei.refactoring.form.Name;
 import com.huawei.refactoring.form.Passport;
@@ -19,14 +20,16 @@ public class App {
     private static void rejected() {
         EntryForm parent = new EntryForm(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", "China"),
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
-                Collections.singletonList("China"), "CA850", false), false,
-            false, false, false, false, true,
+                Collections.singletonList("China"), "CA850", false),
+            new BelongingDeclaration(false,
+                false, false, false), false, true,
             false, 0.0);
 
         EntryForm child = new EntryForm(new Passport(new Name("Shisan", "Zhang", ""), LocalDate.of(2009, 6, 4), "Beijing", "E43241345", "China"),
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
-                Collections.singletonList("China"), "CA850", false), false,
-            false, false, false, false, false,
+                Collections.singletonList("China"), "CA850", false),
+            new BelongingDeclaration(false,
+                false, false, false), false, false,
             false, 0.0);
 
         SupplementalInformation parentSupplemental = new SupplementalInformation(
@@ -44,14 +47,14 @@ public class App {
     private static void approved() {
         EntryForm parent = new EntryForm(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", "China"),
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
-                Collections.singletonList("China"), "CA850", false), false,
-            false, false, false, false, false,
+                Collections.singletonList("China"), "CA850", false),
+            new BelongingDeclaration(false, false, false, false), false, false,
             false, 0.0);
 
         EntryForm child = new EntryForm(new Passport(new Name("Shisan", "Zhang", ""), LocalDate.of(1989, 6, 4), "Beijing", "E43241345", "China"),
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
-                Collections.singletonList("China"), "CA850", false), false,
-            false, false, false, false, false,
+                Collections.singletonList("China"), "CA850", false),
+            new BelongingDeclaration(false, false, false, false), false, false,
             false, 0.0);
 
         SupplementalInformation parentSupplemental = new SupplementalInformation(
@@ -87,10 +90,10 @@ public class App {
         System.out.println("Passport: " + form.getPassport().getPassportNumber() + " Issued at: " + form.getPassport().getPassportIssuePlace());
         System.out.println("Resident at: " + form.getPassport().getCountryOfResident());
         System.out.println("Business Trip: " + form.getItinerary().isBusinessTrip());
-        System.out.println("Bringing Fruits         : " + form.isBringingFruits());
-        System.out.println("         Meats          : " + form.isBringingMeats());
-        System.out.println("         Disease Agents : " + form.isBringingDiseaseAgents());
-        System.out.println("         Soil           : " + form.isBringSoil());
+        System.out.println("Bringing Fruits         : " + form.getBelongingDeclaration().hasFruits());
+        System.out.println("         Meats          : " + form.getBelongingDeclaration().hasMeats());
+        System.out.println("         Disease Agents : " + form.getBelongingDeclaration().hasDiseaseAgents());
+        System.out.println("         Soil           : " + form.getBelongingDeclaration().hasSoil());
         System.out.println("Carrying 10K Cash: " + form.isCarrying10KCash());
         System.out.println("Is Closed Living Stockings: " + form.isClosedLivingStock());
         System.out.println("Carrying Commercials Merchandise : " + form.isCarryingCommercialsMerchandise());

@@ -2,6 +2,7 @@ package com.huawei.refactoring;
 
 
 import com.huawei.refactoring.form.Address;
+import com.huawei.refactoring.form.BelongingDeclaration;
 import com.huawei.refactoring.form.Itinerary;
 import com.huawei.refactoring.form.Name;
 import com.huawei.refactoring.form.Passport;
@@ -19,14 +20,14 @@ public class EntryFormTest {
     public void smoke_test_happy() {
         EntryForm parent = new EntryForm(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", "China"),
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
-                Collections.singletonList("China"), "CA850", false), false,
-            false, false, false, false, false,
+                Collections.singletonList("China"), "CA850", false),
+            new BelongingDeclaration(false, false, false, false), false, false,
             false, 0.0);
 
         EntryForm child = new EntryForm(new Passport(new Name("Shisan", "Zhang", ""), LocalDate.of(2009, 6, 4), "Beijing", "E43241345", "China"),
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
-                Collections.singletonList("China"), "CA850", false), false,
-            false, false, false, false, false,
+                Collections.singletonList("China"), "CA850", false),
+            new BelongingDeclaration(false, false, false, false), false, false,
             false, 0.0);
 
         SupplementalInformation parentSupplemental = new SupplementalInformation(
@@ -45,14 +46,14 @@ public class EntryFormTest {
     public void smoke_test_sad() {
         EntryForm parent = new EntryForm(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", "China"),
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
-                Collections.singletonList("China"), "CA850", false), false,
-            false, false, false, false, true,
+                Collections.singletonList("China"), "CA850", false),
+            new BelongingDeclaration(false, false, false, false), false, true,
             false, 0.0);
 
         EntryForm child = new EntryForm(new Passport(new Name("Shisan", "Zhang", ""), LocalDate.of(2009, 6, 4), "Beijing", "E43241345", "China"),
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
-                Collections.singletonList("China"), "CA850", false), false,
-            false, false, false, false, false,
+                Collections.singletonList("China"), "CA850", false),
+            new BelongingDeclaration(false, false, false, false), false, false,
             false, 0.0);
 
         SupplementalInformation parentSupplemental = new SupplementalInformation(
@@ -80,8 +81,8 @@ public class EntryFormTest {
     public void should_not_accept_empty_as_first_name() {
         new EntryForm(new Passport(new Name("", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", "China"),
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
-                Collections.singletonList("China"), "CA850", false), false,
-            false, false, false, false, false,
+                Collections.singletonList("China"), "CA850", false),
+            new BelongingDeclaration(false, false, false, false), false, false,
             false, 0.0);
     }
 
@@ -89,8 +90,8 @@ public class EntryFormTest {
     public void should_not_accept_empty_as_last_name() {
         new EntryForm(new Passport(new Name("San", "", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", "China"),
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
-                Collections.singletonList("China"), "CA850", false), false,
-            false, false, false, false, false,
+                Collections.singletonList("China"), "CA850", false),
+            new BelongingDeclaration(false, false, false, false), false, false,
             false, 0.0);
     }
 
@@ -98,8 +99,8 @@ public class EntryFormTest {
     public void should_not_accept_empty_as_address() {
         new EntryForm(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", "China"),
             new Itinerary(new Address("", "Chicago", "IL"), 1,
-                Collections.singletonList("China"), "CA850", false), false,
-            false, false, false, false, false,
+                Collections.singletonList("China"), "CA850", false),
+            new BelongingDeclaration(false, false, false, false), false, false,
             false, 0.0);
     }
 
@@ -107,8 +108,8 @@ public class EntryFormTest {
     public void should_not_accept_empty_as_city() {
         new EntryForm(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", "China"),
             new Itinerary(new Address("200 Main Street", "", "IL"), 1,
-                Collections.singletonList("China"), "CA850", false), false,
-            false, false, false, false, false,
+                Collections.singletonList("China"), "CA850", false),
+            new BelongingDeclaration(false, false, false, false), false, false,
             false, 0.0);
     }
 
@@ -116,8 +117,8 @@ public class EntryFormTest {
     public void should_not_accept_empty_as_state() {
         new EntryForm(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", "China"),
             new Itinerary(new Address("200 Main Street", "Chicago", ""), 1,
-                Collections.singletonList("China"), "CA850", false), false,
-            false, false, false, false, false,
+                Collections.singletonList("China"), "CA850", false),
+            new BelongingDeclaration(false, false, false, false), false, false,
             false, 0.0);
     }
 
@@ -125,8 +126,8 @@ public class EntryFormTest {
     public void should_not_accept_empty_as_issue_place() {
         new EntryForm(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "", "E47652345", "China"),
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
-                Collections.singletonList("China"), "CA850", false), false,
-            false, false, false, false, false,
+                Collections.singletonList("China"), "CA850", false),
+            new BelongingDeclaration(false, false, false, false), false, false,
             false, 0.0);
     }
 
@@ -134,8 +135,8 @@ public class EntryFormTest {
     public void should_not_accept_empty_as_passport_number() {
         new EntryForm(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "", "China"),
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
-                Collections.singletonList("China"), "CA850", false), false,
-            false, false, false, false, false,
+                Collections.singletonList("China"), "CA850", false),
+            new BelongingDeclaration(false, false, false, false), false, false,
             false, 0.0);
     }
 
@@ -143,8 +144,8 @@ public class EntryFormTest {
     public void should_not_accept_empty_as_country_of_resident() {
         new EntryForm(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", ""),
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
-                Collections.singletonList("China"), "CA850", false), false,
-            false, false, false, false, false,
+                Collections.singletonList("China"), "CA850", false),
+            new BelongingDeclaration(false, false, false, false), false, false,
             false, 0.0);
     }
 
@@ -152,8 +153,8 @@ public class EntryFormTest {
     public void should_not_accept_empty_as_flight_number() {
         new EntryForm(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", "China"),
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
-                Collections.singletonList("China"), "", false), false,
-            false, false, false, false, false,
+                Collections.singletonList("China"), "", false),
+            new BelongingDeclaration(false, false, false, false), false, false,
             false, 0.0);
     }
 
@@ -161,8 +162,8 @@ public class EntryFormTest {
     public void should_not_accept_empty_as_middle_name() {
         EntryForm form = new EntryForm(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", "China"),
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
-                Collections.singletonList("China"), "CA850", false), false,
-            false, false, false, false, false,
+                Collections.singletonList("China"), "CA850", false),
+            new BelongingDeclaration(false, false, false, false), false, false,
             false, 0.0);
 
         assertThat(form.getPassport().getName().getMiddleName(), is(""));
@@ -172,8 +173,8 @@ public class EntryFormTest {
     public void should_not_accept_empty_as_countries_visited() {
         EntryForm form = new EntryForm(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", "China"),
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
-                null, "CA850", false), false,
-            false, false, false, false, false,
+                null, "CA850", false),
+            new BelongingDeclaration(false, false, false, false), false, false,
             false, 0.0);
 
         assertThat(form.getItinerary().getCountriesVisited().size(), is(0));

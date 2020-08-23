@@ -1,5 +1,6 @@
 package com.huawei.refactoring;
 
+import com.huawei.refactoring.form.BelongingDeclaration;
 import com.huawei.refactoring.form.Itinerary;
 import com.huawei.refactoring.form.Passport;
 
@@ -11,12 +12,8 @@ import static com.huawei.refactoring.form.Validators.notNegative;
 public class EntryForm {
     private Passport passport;
     private Itinerary itinerary;
+    private BelongingDeclaration belongingDeclaration;
 
-    //表格问题 11
-    private boolean isBringingFruits;
-    private boolean isBringingMeats;
-    private boolean isBringingDiseaseAgents;
-    private boolean isBringSoil;
     //表格问题 12
     private boolean isClosedLivingStock;
     //表格问题 13
@@ -26,15 +23,11 @@ public class EntryForm {
     //表格问题 15
     private double totalValueOfAllArticle;
 
-    public EntryForm(Passport passport, Itinerary itinerary, boolean isBringingFruits, boolean isBringingMeats,
-                     boolean isBringingDiseaseAgents, boolean isBringSoil, boolean isClosedLivingStock,
+    public EntryForm(Passport passport, Itinerary itinerary, BelongingDeclaration belongingDeclaration, boolean isClosedLivingStock,
                      boolean isCarrying10KCash, boolean isCarryingCommercialsMerchandise, double totalValueOfAllArticle) {
         this.passport = passport;
         this.itinerary = itinerary;
-        this.isBringingFruits = isBringingFruits;
-        this.isBringingMeats = isBringingMeats;
-        this.isBringingDiseaseAgents = isBringingDiseaseAgents;
-        this.isBringSoil = isBringSoil;
+        this.belongingDeclaration = belongingDeclaration;
         this.isClosedLivingStock = isClosedLivingStock;
         this.isCarrying10KCash = isCarrying10KCash;
         this.isCarryingCommercialsMerchandise = isCarryingCommercialsMerchandise;
@@ -53,20 +46,8 @@ public class EntryForm {
         return itinerary;
     }
 
-    public boolean isBringingFruits() {
-        return isBringingFruits;
-    }
-
-    public boolean isBringingMeats() {
-        return isBringingMeats;
-    }
-
-    public boolean isBringingDiseaseAgents() {
-        return isBringingDiseaseAgents;
-    }
-
-    public boolean isBringSoil() {
-        return isBringSoil;
+    public BelongingDeclaration getBelongingDeclaration() {
+        return belongingDeclaration;
     }
 
     public boolean isClosedLivingStock() {
