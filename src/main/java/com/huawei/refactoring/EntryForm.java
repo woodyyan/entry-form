@@ -47,16 +47,16 @@ public class EntryForm {
     //表格问题 15
     private double totalValueOfAllArticle;
 
-    public EntryForm(String firstName, String lastName, String middleName, LocalDate birthday, int numberOfFamilyMember,
-                     String street, String city, String state, String passportIssuePlace, String passportNumber,
+    public EntryForm(Name name, LocalDate birthday, int numberOfFamilyMember,
+                     Address address, String passportIssuePlace, String passportNumber,
                      String countryOfResident, List<String> countriesVisited, String flightNumber,
                      boolean isBusinessTrip, boolean isBringingFruits, boolean isBringingMeats,
                      boolean isBringingDiseaseAgents, boolean isBringSoil, boolean isClosedLivingStock,
                      boolean isCarrying10KCash, boolean isCarryingCommercialsMerchandise, double totalValueOfAllArticle) {
-        this.name = new Name(firstName, lastName, middleName);
+        this.name = name;
         this.birthday = afterToday(notNull(birthday, "birthday can't be null"));
         this.numberOfFamilyMember = notNegative(numberOfFamilyMember, "number of family can't be negative");
-        this.address = new Address(street, city, state);
+        this.address = address;
         this.passportIssuePlace = notNull(passportIssuePlace, "passportIssuePlace can't be blank");
         this.passportNumber = notNull(passportNumber, "passportNumber can't be blank");
         this.countryOfResident = notNull(countryOfResident, "countryOfResident can't be blank");

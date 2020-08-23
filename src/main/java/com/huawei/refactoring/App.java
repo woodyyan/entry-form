@@ -1,7 +1,10 @@
 package com.huawei.refactoring;
 
+import com.huawei.refactoring.form.Address;
+import com.huawei.refactoring.form.Name;
+
 import java.time.LocalDate;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 
 //00.Day2-Problem-start
@@ -12,17 +15,17 @@ public class App {
     }
 
     private static void rejected() {
-        EntryForm parent = new EntryForm("San", "Zhang", "", LocalDate.of(1975, 1, 1),
-            1, "200 Main Street", "Chicago", "IL",
+        EntryForm parent = new EntryForm(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1),
+            1, new Address("200 Main Street", "Chicago", "IL"),
             "Beijing", "E47652345", "China",
-            Arrays.asList("China"), "CA850", false, false,
+            Collections.singletonList("China"), "CA850", false, false,
             false, false, false, false, true,
             false, 0.0);
 
-        EntryForm child = new EntryForm("Shisan", "Zhang", "", LocalDate.of(2009, 6, 4),
-            1, "200 Main Street", "Chicago", "IL",
+        EntryForm child = new EntryForm(new Name("Shisan", "Zhang", ""), LocalDate.of(2009, 6, 4),
+            1, new Address("200 Main Street", "Chicago", "IL"),
             "Beijing", "E43241345", "China",
-            Arrays.asList("China"), "CA850", false, false,
+            Collections.singletonList("China"), "CA850", false, false,
             false, false, false, false, false,
             false, 0.0);
 
@@ -39,17 +42,17 @@ public class App {
     }
 
     private static void approved() {
-        EntryForm parent = new EntryForm("San", "Zhang", "", LocalDate.of(1975, 1, 1),
-            1, "200 Main Street", "Chicago", "IL",
+        EntryForm parent = new EntryForm(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1),
+            1, new Address("200 Main Street", "Chicago", "IL"),
             "Beijing", "E47652345", "China",
-            Arrays.asList("China"), "CA850", false, false,
+            Collections.singletonList("China"), "CA850", false, false,
             false, false, false, false, false,
             false, 0.0);
 
-        EntryForm child = new EntryForm("Shisan", "Zhang", "", LocalDate.of(1989, 6, 4),
-            1, "200 Main Street", "Chicago", "IL",
+        EntryForm child = new EntryForm(new Name("Shisan", "Zhang", ""), LocalDate.of(1989, 6, 4),
+            1, new Address("200 Main Street", "Chicago", "IL"),
             "Beijing", "E43241345", "China",
-            Arrays.asList("China"), "CA850", false, false,
+            Collections.singletonList("China"), "CA850", false, false,
             false, false, false, false, false,
             false, 0.0);
 
