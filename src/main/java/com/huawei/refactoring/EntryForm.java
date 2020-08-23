@@ -1,29 +1,17 @@
 package com.huawei.refactoring;
 
-import com.huawei.refactoring.form.Address;
-import com.huawei.refactoring.form.Name;
+import com.huawei.refactoring.form.Itinerary;
 import com.huawei.refactoring.form.Passport;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.List;
 
-import static com.huawei.refactoring.form.Validators.afterToday;
-import static com.huawei.refactoring.form.Validators.couldBeNull;
 import static com.huawei.refactoring.form.Validators.notNegative;
-import static com.huawei.refactoring.form.Validators.notNull;
 
 public class EntryForm {
     private Passport passport;
-    private Address address;
-    //表格问题 3
-    private int numberOfFamilyMember;
-    //表格问题 8
-    private List<String> countriesVisited;
-    //表格问题 9
-    private String flightNumber;
-    //表格问题 10
-    private boolean isBusinessTrip;
+    private Itinerary itinerary;
+
     //表格问题 11
     private boolean isBringingFruits;
     private boolean isBringingMeats;
@@ -38,17 +26,11 @@ public class EntryForm {
     //表格问题 15
     private double totalValueOfAllArticle;
 
-    public EntryForm(Passport passport, int numberOfFamilyMember,
-                     Address address, List<String> countriesVisited, String flightNumber,
-                     boolean isBusinessTrip, boolean isBringingFruits, boolean isBringingMeats,
+    public EntryForm(Passport passport, Itinerary itinerary, boolean isBringingFruits, boolean isBringingMeats,
                      boolean isBringingDiseaseAgents, boolean isBringSoil, boolean isClosedLivingStock,
                      boolean isCarrying10KCash, boolean isCarryingCommercialsMerchandise, double totalValueOfAllArticle) {
         this.passport = passport;
-        this.numberOfFamilyMember = notNegative(numberOfFamilyMember, "number of family can't be negative");
-        this.address = address;
-        this.countriesVisited = couldBeNull(countriesVisited);
-        this.flightNumber = notNull(flightNumber, "flightNumber can't be blank");
-        this.isBusinessTrip = isBusinessTrip;
+        this.itinerary = itinerary;
         this.isBringingFruits = isBringingFruits;
         this.isBringingMeats = isBringingMeats;
         this.isBringingDiseaseAgents = isBringingDiseaseAgents;
@@ -59,28 +41,16 @@ public class EntryForm {
         this.totalValueOfAllArticle = notNegative(totalValueOfAllArticle, "totalValueOfAllArticle can't be negative");
     }
 
-    public int getNumberOfFamilyMember() {
-        return numberOfFamilyMember;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public List<String> getCountriesVisited() {
-        return countriesVisited;
-    }
-
-    public String getFlightNumber() {
-        return flightNumber;
-    }
-
-    public boolean isBusinessTrip() {
-        return isBusinessTrip;
+    public Passport getPassport() {
+        return passport;
     }
 
     public double getTotalValueOfAllArticle() {
         return totalValueOfAllArticle;
+    }
+
+    public Itinerary getItinerary() {
+        return itinerary;
     }
 
     public boolean isBringingFruits() {
@@ -116,7 +86,7 @@ public class EntryForm {
         int years = Period.between(this.getPassport().getBirthday(), LocalDate.now()).getYears();
 
         if (years < 18) {
-            if (numberOfFamilyMember == 0) throw new RejectedException("under 18 needs an adult");
+            if (this.itinerary.getNumberOfFamilyMember() == 0) throw new RejectedException("under 18 needs an adult");
             boolean staySame = true;
             boolean found = false;
             for (EntryForm form : supplementalInformation.getFamilyMembers()) {
@@ -124,9 +94,9 @@ public class EntryForm {
                     found = true;
 
                     //陪同人需要跟18岁以下住在一起
-                    if (!form.getAddress().getStreet().equals(this.address.getStreet())
-                        || !form.getAddress().getCity().equals(this.address.getCity())
-                        || !form.getAddress().getState().equals(this.address.getState())) {
+                    if (!form.getItinerary().getAddress().getStreet().equals(this.getItinerary().getAddress().getStreet())
+                        || !form.getItinerary().getAddress().getCity().equals(this.getItinerary().getAddress().getCity())
+                        || !form.getItinerary().getAddress().getState().equals(this.getItinerary().getAddress().getState())) {
                         staySame = false;
                     }
                 }
@@ -137,13 +107,13 @@ public class EntryForm {
 
         //全家出行总财产
         double total = totalValueOfAllArticle;
-        if (numberOfFamilyMember > 0) {
+        if (this.itinerary.getNumberOfFamilyMember() > 0) {
             for (EntryForm form : supplementalInformation.getFamilyMembers()) {
                 total += form.getTotalValueOfAllArticle();
             }
         }
         //商务出行，全家可携超过某数额的财产
-        if (isBusinessTrip) {
+        if (this.itinerary.isBusinessTrip()) {
             if (total > 2000) throw new RejectedException("too much money");
         } else {
             if (total > 500) throw new RejectedException("too much money");
@@ -172,19 +142,15 @@ public class EntryForm {
         }
 
         //商务旅行携带商业产品不总价不能超过400
-        if (isBusinessTrip && isCarryingCommercialsMerchandise && totalValueOfAllArticle > 400) {
+        if (this.itinerary.isBusinessTrip() && isCarryingCommercialsMerchandise && totalValueOfAllArticle > 400) {
             throw new RejectedException("too much money");
         }
         //非商务旅行严禁携带商业产品
-        if (!isBusinessTrip && isCarryingCommercialsMerchandise)
+        if (!this.itinerary.isBusinessTrip() && isCarryingCommercialsMerchandise)
             throw new RejectedException("commercial merchandise not allowed");
 
         //其他校验
 
         return true;
-    }
-
-    public Passport getPassport() {
-        return passport;
     }
 }

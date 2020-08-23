@@ -1,6 +1,7 @@
 package com.huawei.refactoring;
 
 import com.huawei.refactoring.form.Address;
+import com.huawei.refactoring.form.Itinerary;
 import com.huawei.refactoring.form.Name;
 import com.huawei.refactoring.form.Passport;
 
@@ -17,14 +18,14 @@ public class App {
 
     private static void rejected() {
         EntryForm parent = new EntryForm(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", "China"),
-            1, new Address("200 Main Street", "Chicago", "IL"),
-            Collections.singletonList("China"), "CA850", false, false,
+            new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
+                Collections.singletonList("China"), "CA850", false), false,
             false, false, false, false, true,
             false, 0.0);
 
         EntryForm child = new EntryForm(new Passport(new Name("Shisan", "Zhang", ""), LocalDate.of(2009, 6, 4), "Beijing", "E43241345", "China"),
-            1, new Address("200 Main Street", "Chicago", "IL"),
-            Collections.singletonList("China"), "CA850", false, false,
+            new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
+                Collections.singletonList("China"), "CA850", false), false,
             false, false, false, false, false,
             false, 0.0);
 
@@ -42,14 +43,14 @@ public class App {
 
     private static void approved() {
         EntryForm parent = new EntryForm(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", "China"),
-            1, new Address("200 Main Street", "Chicago", "IL"),
-            Collections.singletonList("China"), "CA850", false, false,
+            new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
+                Collections.singletonList("China"), "CA850", false), false,
             false, false, false, false, false,
             false, 0.0);
 
         EntryForm child = new EntryForm(new Passport(new Name("Shisan", "Zhang", ""), LocalDate.of(1989, 6, 4), "Beijing", "E43241345", "China"),
-            1, new Address("200 Main Street", "Chicago", "IL"),
-            Collections.singletonList("China"), "CA850", false, false,
+            new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
+                Collections.singletonList("China"), "CA850", false), false,
             false, false, false, false, false,
             false, 0.0);
 
@@ -79,13 +80,13 @@ public class App {
     private static void printForm(EntryForm form) {
         System.out.println("Application: " + form.getPassport().getName().getFirstName() + " " + form.getPassport().getName().getMiddleName() + " " + form.getPassport().getName().getLastName());
         System.out.println("Birthday: " + form.getPassport().getBirthday().toString());
-        System.out.println("US Address: " + form.getAddress().getStreet() + " " + form.getAddress().getCity() + " " + form.getAddress().getState());
-        System.out.println("# of Family member: " + form.getNumberOfFamilyMember());
-        System.out.println("Flight: " + form.getFlightNumber());
-        System.out.println("Visited: " + String.join(", ", form.getCountriesVisited()));
+        System.out.println("US Address: " + form.getItinerary().getAddress().getStreet() + " " + form.getItinerary().getAddress().getCity() + " " + form.getItinerary().getAddress().getState());
+        System.out.println("# of Family member: " + form.getItinerary().getNumberOfFamilyMember());
+        System.out.println("Flight: " + form.getItinerary().getFlightNumber());
+        System.out.println("Visited: " + String.join(", ", form.getItinerary().getCountriesVisited()));
         System.out.println("Passport: " + form.getPassport().getPassportNumber() + " Issued at: " + form.getPassport().getPassportIssuePlace());
         System.out.println("Resident at: " + form.getPassport().getCountryOfResident());
-        System.out.println("Business Trip: " + form.isBusinessTrip());
+        System.out.println("Business Trip: " + form.getItinerary().isBusinessTrip());
         System.out.println("Bringing Fruits         : " + form.isBringingFruits());
         System.out.println("         Meats          : " + form.isBringingMeats());
         System.out.println("         Disease Agents : " + form.isBringingDiseaseAgents());
