@@ -2,6 +2,7 @@ package com.huawei.refactoring;
 
 import com.huawei.refactoring.form.Address;
 import com.huawei.refactoring.form.Name;
+import com.huawei.refactoring.form.Passport;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -13,20 +14,10 @@ import static com.huawei.refactoring.form.Validators.notNegative;
 import static com.huawei.refactoring.form.Validators.notNull;
 
 public class EntryForm {
-    //表格问题 1
-    private Name name;
-    //表格问题 2
-    private LocalDate birthday;
-
+    private Passport passport;
     private Address address;
     //表格问题 3
     private int numberOfFamilyMember;
-    //表格问题 5
-    private String passportIssuePlace;
-    //表格问题 6
-    private String passportNumber;
-    //表格问题 7
-    private String countryOfResident;
     //表格问题 8
     private List<String> countriesVisited;
     //表格问题 9
@@ -47,19 +38,14 @@ public class EntryForm {
     //表格问题 15
     private double totalValueOfAllArticle;
 
-    public EntryForm(Name name, LocalDate birthday, int numberOfFamilyMember,
-                     Address address, String passportIssuePlace, String passportNumber,
-                     String countryOfResident, List<String> countriesVisited, String flightNumber,
+    public EntryForm(Passport passport, int numberOfFamilyMember,
+                     Address address, List<String> countriesVisited, String flightNumber,
                      boolean isBusinessTrip, boolean isBringingFruits, boolean isBringingMeats,
                      boolean isBringingDiseaseAgents, boolean isBringSoil, boolean isClosedLivingStock,
                      boolean isCarrying10KCash, boolean isCarryingCommercialsMerchandise, double totalValueOfAllArticle) {
-        this.name = name;
-        this.birthday = afterToday(notNull(birthday, "birthday can't be null"));
+        this.passport = passport;
         this.numberOfFamilyMember = notNegative(numberOfFamilyMember, "number of family can't be negative");
         this.address = address;
-        this.passportIssuePlace = notNull(passportIssuePlace, "passportIssuePlace can't be blank");
-        this.passportNumber = notNull(passportNumber, "passportNumber can't be blank");
-        this.countryOfResident = notNull(countryOfResident, "countryOfResident can't be blank");
         this.countriesVisited = couldBeNull(countriesVisited);
         this.flightNumber = notNull(flightNumber, "flightNumber can't be blank");
         this.isBusinessTrip = isBusinessTrip;
@@ -73,32 +59,12 @@ public class EntryForm {
         this.totalValueOfAllArticle = notNegative(totalValueOfAllArticle, "totalValueOfAllArticle can't be negative");
     }
 
-    public Name getName() {
-        return name;
-    }
-
-    public LocalDate getBirthday() {
-        return birthday;
-    }
-
     public int getNumberOfFamilyMember() {
         return numberOfFamilyMember;
     }
 
     public Address getAddress() {
         return address;
-    }
-
-    public String getPassportIssuePlace() {
-        return passportIssuePlace;
-    }
-
-    public String getPassportNumber() {
-        return passportNumber;
-    }
-
-    public String getCountryOfResident() {
-        return countryOfResident;
     }
 
     public List<String> getCountriesVisited() {
@@ -147,14 +113,14 @@ public class EntryForm {
 
     public boolean isApproved(SupplementalInformation supplementalInformation) {
         //18岁以下需大人陪同
-        int years = Period.between(birthday, LocalDate.now()).getYears();
+        int years = Period.between(this.getPassport().getBirthday(), LocalDate.now()).getYears();
 
         if (years < 18) {
             if (numberOfFamilyMember == 0) throw new RejectedException("under 18 needs an adult");
             boolean staySame = true;
             boolean found = false;
             for (EntryForm form : supplementalInformation.getFamilyMembers()) {
-                if (Period.between(form.birthday, LocalDate.now()).getYears() > 18) {
+                if (Period.between(form.getPassport().getBirthday(), LocalDate.now()).getYears() > 18) {
                     found = true;
 
                     //陪同人需要跟18岁以下住在一起
@@ -193,7 +159,7 @@ public class EntryForm {
         if (years < 18) {
             boolean found = false;
             for (EntryForm form : supplementalInformation.getFamilyMembers()) {
-                if (Period.between(form.birthday, LocalDate.now()).getYears() > 18) {
+                if (Period.between(form.getPassport().getBirthday(), LocalDate.now()).getYears() > 18) {
                     try {
                         if (form.isApproved(supplementalInformation.getFamilyMemberSupplementalInformation(form)))
                             found = true;
@@ -216,5 +182,9 @@ public class EntryForm {
         //其他校验
 
         return true;
+    }
+
+    public Passport getPassport() {
+        return passport;
     }
 }
