@@ -1,15 +1,9 @@
 package com.huawei.refactoring;
 
 
-import com.huawei.refactoring.form.Address;
-import com.huawei.refactoring.form.Itinerary;
-import com.huawei.refactoring.form.Name;
-import com.huawei.refactoring.form.Passport;
 import com.huawei.refactoring.form.ValuableArticle;
 import org.junit.Test;
 
-import java.time.LocalDate;
-import java.util.Collections;
 import java.util.HashMap;
 
 import static com.huawei.refactoring.TestData.ALL_OK_SUPPLEMENTAL;
@@ -70,52 +64,5 @@ public class EntryFormTest {
         } catch (RejectedException e) {
             assertThat(e.getMessage(), is("family not allowed"));
         }
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void should_not_accept_empty_as_address() {
-        new EntryForm(ZHANG_SAN_PASSPORT,
-            new Itinerary(new Address("", "Chicago", "IL"), 1,
-                Collections.singletonList("China"), "CA850", false),
-            NOTHING_TO_DECLARATION,
-            NO_VALUABLE_ARTICLE, false);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void should_not_accept_empty_as_city() {
-        new EntryForm(ZHANG_SAN_PASSPORT,
-            new Itinerary(new Address("200 Main Street", "", "IL"), 1,
-                Collections.singletonList("China"), "CA850", false),
-            NOTHING_TO_DECLARATION,
-            NO_VALUABLE_ARTICLE, false);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void should_not_accept_empty_as_state() {
-        new EntryForm(ZHANG_SAN_PASSPORT,
-            new Itinerary(new Address("200 Main Street", "Chicago", ""), 1,
-                Collections.singletonList("China"), "CA850", false),
-            NOTHING_TO_DECLARATION,
-            NO_VALUABLE_ARTICLE, false);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void should_not_accept_empty_as_flight_number() {
-        new EntryForm(ZHANG_SAN_PASSPORT,
-            new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
-                Collections.singletonList("China"), "", false),
-            NOTHING_TO_DECLARATION,
-            NO_VALUABLE_ARTICLE, false);
-    }
-
-    @Test
-    public void should_accept_empty_as_countries_visited() {
-        EntryForm form = new EntryForm(ZHANG_SAN_PASSPORT,
-            new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
-                null, "CA850", false),
-            NOTHING_TO_DECLARATION,
-            NO_VALUABLE_ARTICLE, false);
-
-        assertThat(form.getItinerary().getCountriesVisited().size(), is(0));
     }
 }
