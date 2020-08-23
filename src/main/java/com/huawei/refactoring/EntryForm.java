@@ -1,15 +1,19 @@
 package com.huawei.refactoring;
 
+import com.huawei.refactoring.form.Name;
+
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Collections;
 import java.util.List;
+
+import static com.huawei.refactoring.form.Validators.afterToday;
+import static com.huawei.refactoring.form.Validators.couldBeNull;
+import static com.huawei.refactoring.form.Validators.notNegative;
+import static com.huawei.refactoring.form.Validators.notNull;
 
 public class EntryForm {
     //表格问题 1
-    private String firstName;
-    private String lastName;
-    private String middleName;
+    private Name name;
     //表格问题 2
     private LocalDate birthday;
     //表格问题 3
@@ -50,9 +54,7 @@ public class EntryForm {
                      boolean isBusinessTrip, boolean isBringingFruits, boolean isBringingMeats,
                      boolean isBringingDiseaseAgents, boolean isBringSoil, boolean isClosedLivingStock,
                      boolean isCarrying10KCash, boolean isCarryingCommercialsMerchandise, double totalValueOfAllArticle) {
-        this.firstName = notNull(firstName, "first name can't be blank");
-        this.lastName = notNull(lastName, "last name can't be blank");
-        this.middleName = couldBeNull(middleName);
+        this.name = new Name(firstName, lastName, middleName);
         this.birthday = afterToday(notNull(birthday, "birthday can't be null"));
         this.numberOfFamilyMember = notNegative(numberOfFamilyMember, "number of family can't be negative");
         this.address = notNull(address, "address can't be blank");
@@ -74,57 +76,8 @@ public class EntryForm {
         this.totalValueOfAllArticle = notNegative(totalValueOfAllArticle, "totalValueOfAllArticle can't be negative");
     }
 
-    private List<String> couldBeNull(List<String> list) {
-        if (list == null) {
-            return Collections.emptyList();
-        } else {
-            return list;
-        }
-    }
-
-    private int notNegative(int value, String message) {
-        if (value < 0) throw new IllegalArgumentException(message);
-        return value;
-    }
-
-    private double notNegative(double value, String message) {
-        if (value < 0) throw new IllegalArgumentException(message);
-        return value;
-    }
-
-    private LocalDate afterToday(LocalDate birthday) {
-        if (birthday.isAfter(LocalDate.now())) throw new IllegalArgumentException("birthday should before today");
-        return birthday;
-    }
-
-    private LocalDate notNull(LocalDate localDate, String message) {
-        if (localDate == null) throw new IllegalArgumentException(message);
-        return localDate;
-    }
-
-    private String couldBeNull(String value) {
-        if (value == null) {
-            return "";
-        } else {
-            return value;
-        }
-    }
-
-    private String notNull(String value, String message) {
-        if (value == null || "".equals(value)) throw new IllegalArgumentException(message);
-        return value;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
+    public Name getName() {
+        return name;
     }
 
     public LocalDate getBirthday() {

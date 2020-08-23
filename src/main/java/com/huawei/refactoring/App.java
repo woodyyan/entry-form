@@ -13,24 +13,26 @@ public class App {
 
     private static void rejected() {
         EntryForm parent = new EntryForm("San", "Zhang", "", LocalDate.of(1975, 1, 1),
-                1, "200 Main Street", "Chicago", "IL",
-                "Beijing", "E47652345", "China",
-                Arrays.asList("China"), "CA850", false, false,
-                false, false, false, false, true,
-                false, 0.0);
+            1, "200 Main Street", "Chicago", "IL",
+            "Beijing", "E47652345", "China",
+            Arrays.asList("China"), "CA850", false, false,
+            false, false, false, false, true,
+            false, 0.0);
 
         EntryForm child = new EntryForm("Shisan", "Zhang", "", LocalDate.of(2009, 6, 4),
-                1, "200 Main Street", "Chicago", "IL",
-                "Beijing", "E43241345", "China",
-                Arrays.asList("China"), "CA850", false, false,
-                false, false, false, false, false,
-                false, 0.0);
+            1, "200 Main Street", "Chicago", "IL",
+            "Beijing", "E43241345", "China",
+            Arrays.asList("China"), "CA850", false, false,
+            false, false, false, false, false,
+            false, 0.0);
 
         SupplementalInformation parentSupplemental = new SupplementalInformation(
-                new HashMap<>(), false, false, false, false, false, false
+            new HashMap<>(), false, false, false, false, false, false
         );
 
-        SupplementalInformation childSupplemental = new SupplementalInformation(new HashMap<EntryForm, SupplementalInformation>(){{            put(parent, parentSupplemental);        }}, false, false, false, false, false, false);
+        SupplementalInformation childSupplemental = new SupplementalInformation(new HashMap<EntryForm, SupplementalInformation>() {{
+            put(parent, parentSupplemental);
+        }}, false, false, false, false, false, false);
 
         validate(parent, parentSupplemental);
         validate(child, childSupplemental);
@@ -38,24 +40,26 @@ public class App {
 
     private static void approved() {
         EntryForm parent = new EntryForm("San", "Zhang", "", LocalDate.of(1975, 1, 1),
-                1, "200 Main Street", "Chicago", "IL",
-                "Beijing", "E47652345", "China",
-                Arrays.asList("China"), "CA850", false, false,
-                false, false, false, false, false,
-                false, 0.0);
+            1, "200 Main Street", "Chicago", "IL",
+            "Beijing", "E47652345", "China",
+            Arrays.asList("China"), "CA850", false, false,
+            false, false, false, false, false,
+            false, 0.0);
 
         EntryForm child = new EntryForm("Shisan", "Zhang", "", LocalDate.of(1989, 6, 4),
-                1, "200 Main Street", "Chicago", "IL",
-                "Beijing", "E43241345", "China",
-                Arrays.asList("China"), "CA850", false, false,
-                false, false, false, false, false,
-                false, 0.0);
+            1, "200 Main Street", "Chicago", "IL",
+            "Beijing", "E43241345", "China",
+            Arrays.asList("China"), "CA850", false, false,
+            false, false, false, false, false,
+            false, 0.0);
 
         SupplementalInformation parentSupplemental = new SupplementalInformation(
-                new HashMap<>(), false, false, false, false, false, false
+            new HashMap<>(), false, false, false, false, false, false
         );
 
-        SupplementalInformation childSupplemental = new SupplementalInformation(new HashMap<EntryForm, SupplementalInformation>(){{            put(parent, parentSupplemental);        }}, false, false, false, false, false, false);
+        SupplementalInformation childSupplemental = new SupplementalInformation(new HashMap<EntryForm, SupplementalInformation>() {{
+            put(parent, parentSupplemental);
+        }}, false, false, false, false, false, false);
 
         validate(parent, parentSupplemental);
         validate(child, childSupplemental);
@@ -73,7 +77,7 @@ public class App {
     }
 
     private static void printForm(EntryForm form) {
-        System.out.println("Application: " + form.getFirstName() + " " + form.getMiddleName() + " " + form.getLastName());
+        System.out.println("Application: " + form.getName().getFirstName() + " " + form.getName().getMiddleName() + " " + form.getName().getLastName());
         System.out.println("Birthday: " + form.getBirthday().toString());
         System.out.println("US Address: " + form.getAddress() + " " + form.getCity() + " " + form.getState());
         System.out.println("# of Family member: " + form.getNumberOfFamilyMember());

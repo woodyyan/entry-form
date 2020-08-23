@@ -171,7 +171,7 @@ public class EntryFormTest {
                 false, false, false, false, false,
                 false, 0.0);
 
-        assertThat(form.getMiddleName(), is(""));
+        assertThat(form.getName().getMiddleName(), is(""));
     }
 
     @Test
