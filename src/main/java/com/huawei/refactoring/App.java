@@ -79,7 +79,7 @@ public class App {
     private static void printForm(EntryForm form) {
         System.out.println("Application: " + form.getName().getFirstName() + " " + form.getName().getMiddleName() + " " + form.getName().getLastName());
         System.out.println("Birthday: " + form.getBirthday().toString());
-        System.out.println("US Address: " + form.getAddress() + " " + form.getCity() + " " + form.getState());
+        System.out.println("US Address: " + form.getAddress().getStreet() + " " + form.getAddress().getCity() + " " + form.getAddress().getState());
         System.out.println("# of Family member: " + form.getNumberOfFamilyMember());
         System.out.println("Flight: " + form.getFlightNumber());
         System.out.println("Visited: " + String.join(", ", form.getCountriesVisited()));

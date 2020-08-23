@@ -1,5 +1,6 @@
 package com.huawei.refactoring;
 
+import com.huawei.refactoring.form.Address;
 import com.huawei.refactoring.form.Name;
 
 import java.time.LocalDate;
@@ -16,12 +17,10 @@ public class EntryForm {
     private Name name;
     //表格问题 2
     private LocalDate birthday;
+
+    private Address address;
     //表格问题 3
     private int numberOfFamilyMember;
-    //表格问题 4
-    private String address;
-    private String city;
-    private String state;
     //表格问题 5
     private String passportIssuePlace;
     //表格问题 6
@@ -49,7 +48,7 @@ public class EntryForm {
     private double totalValueOfAllArticle;
 
     public EntryForm(String firstName, String lastName, String middleName, LocalDate birthday, int numberOfFamilyMember,
-                     String address, String city, String state, String passportIssuePlace, String passportNumber,
+                     String street, String city, String state, String passportIssuePlace, String passportNumber,
                      String countryOfResident, List<String> countriesVisited, String flightNumber,
                      boolean isBusinessTrip, boolean isBringingFruits, boolean isBringingMeats,
                      boolean isBringingDiseaseAgents, boolean isBringSoil, boolean isClosedLivingStock,
@@ -57,9 +56,7 @@ public class EntryForm {
         this.name = new Name(firstName, lastName, middleName);
         this.birthday = afterToday(notNull(birthday, "birthday can't be null"));
         this.numberOfFamilyMember = notNegative(numberOfFamilyMember, "number of family can't be negative");
-        this.address = notNull(address, "address can't be blank");
-        this.city = notNull(city, "city can't be blank");
-        this.state = notNull(state, "state can't be blank");
+        this.address = new Address(street, city, state);
         this.passportIssuePlace = notNull(passportIssuePlace, "passportIssuePlace can't be blank");
         this.passportNumber = notNull(passportNumber, "passportNumber can't be blank");
         this.countryOfResident = notNull(countryOfResident, "countryOfResident can't be blank");
@@ -88,16 +85,8 @@ public class EntryForm {
         return numberOfFamilyMember;
     }
 
-    public String getAddress() {
+    public Address getAddress() {
         return address;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public String getState() {
-        return state;
     }
 
     public String getPassportIssuePlace() {
@@ -169,7 +158,9 @@ public class EntryForm {
                     found = true;
 
                     //陪同人需要跟18岁以下住在一起
-                    if (!form.getAddress().equals(address) || !form.getCity().equals(city) || !form.getState().equals(state)) {
+                    if (!form.getAddress().getStreet().equals(this.address.getStreet())
+                        || !form.getAddress().getCity().equals(this.address.getCity())
+                        || !form.getAddress().getState().equals(this.address.getState())) {
                         staySame = false;
                     }
                 }
