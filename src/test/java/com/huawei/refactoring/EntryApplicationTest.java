@@ -15,21 +15,21 @@ import static com.huawei.refactoring.TestData.ZHANG_SHISAN_PASSPORT;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-public class EntryFormTest {
+public class EntryApplicationTest {
 
     @Test
     public void smoke_test_happy() {
-        EntryForm parent = new EntryForm(ZHANG_SAN_PASSPORT,
+        EntryApplication parent = new EntryApplication(ZHANG_SAN_PASSPORT,
             CHICAGO_NON_BUSINESS_ITINERARY,
             NOTHING_TO_DECLARATION,
             NO_VALUABLE_ARTICLE, false);
 
-        EntryForm child = new EntryForm(ZHANG_SHISAN_PASSPORT,
+        EntryApplication child = new EntryApplication(ZHANG_SHISAN_PASSPORT,
             CHICAGO_NON_BUSINESS_ITINERARY,
             NOTHING_TO_DECLARATION,
             NO_VALUABLE_ARTICLE, false);
 
-        SupplementalInformation childSupplemental = new SupplementalInformation(new HashMap<EntryForm, SupplementalInformation>() {{
+        SupplementalInformation childSupplemental = new SupplementalInformation(new HashMap<EntryApplication, SupplementalInformation>() {{
             put(parent, ALL_OK_SUPPLEMENTAL);
         }}, false, false, false, false, false, false);
 
@@ -39,17 +39,17 @@ public class EntryFormTest {
 
     @Test
     public void smoke_test_sad() {
-        EntryForm parent = new EntryForm(ZHANG_SAN_PASSPORT,
+        EntryApplication parent = new EntryApplication(ZHANG_SAN_PASSPORT,
             CHICAGO_NON_BUSINESS_ITINERARY,
             NOTHING_TO_DECLARATION,
             new ValuableArticle(true, false, 0.0), false);
 
-        EntryForm child = new EntryForm(ZHANG_SHISAN_PASSPORT,
+        EntryApplication child = new EntryApplication(ZHANG_SHISAN_PASSPORT,
             CHICAGO_NON_BUSINESS_ITINERARY,
             NOTHING_TO_DECLARATION,
             NO_VALUABLE_ARTICLE, false);
 
-        SupplementalInformation childSupplemental = new SupplementalInformation(new HashMap<EntryForm, SupplementalInformation>() {{
+        SupplementalInformation childSupplemental = new SupplementalInformation(new HashMap<EntryApplication, SupplementalInformation>() {{
             put(parent, ALL_OK_SUPPLEMENTAL);
         }}, false, false, false, false, false, false);
 

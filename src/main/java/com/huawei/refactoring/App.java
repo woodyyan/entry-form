@@ -19,13 +19,13 @@ public class App {
     }
 
     private static void rejected() {
-        EntryForm parent = new EntryForm(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", "China"),
+        EntryApplication parent = new EntryApplication(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", "China"),
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1, Collections.singletonList("China"), "CA850", false),
             new BelongingDeclaration(false, false, false, false),
             new ValuableArticle(true, false, 0.0),
             false);
 
-        EntryForm child = new EntryForm(new Passport(new Name("Shisan", "Zhang", ""), LocalDate.of(2009, 6, 4), "Beijing", "E43241345", "China"),
+        EntryApplication child = new EntryApplication(new Passport(new Name("Shisan", "Zhang", ""), LocalDate.of(2009, 6, 4), "Beijing", "E43241345", "China"),
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1, Collections.singletonList("China"), "CA850", false),
             new BelongingDeclaration(false, false, false, false),
             new ValuableArticle(false, false, 0.0),
@@ -35,7 +35,7 @@ public class App {
             new HashMap<>(), false, false, false, false, false, false
         );
 
-        SupplementalInformation childSupplemental = new SupplementalInformation(new HashMap<EntryForm, SupplementalInformation>() {{
+        SupplementalInformation childSupplemental = new SupplementalInformation(new HashMap<EntryApplication, SupplementalInformation>() {{
             put(parent, parentSupplemental);
         }}, false, false, false, false, false, false);
 
@@ -44,13 +44,13 @@ public class App {
     }
 
     private static void approved() {
-        EntryForm parent = new EntryForm(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", "China"),
+        EntryApplication parent = new EntryApplication(new Passport(new Name("San", "Zhang", ""), LocalDate.of(1975, 1, 1), "Beijing", "E47652345", "China"),
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1, Collections.singletonList("China"), "CA850", false),
             new BelongingDeclaration(false, false, false, false),
             new ValuableArticle(false, false, 0.0),
             false);
 
-        EntryForm child = new EntryForm(new Passport(new Name("Shisan", "Zhang", ""), LocalDate.of(1989, 6, 4), "Beijing", "E43241345", "China"),
+        EntryApplication child = new EntryApplication(new Passport(new Name("Shisan", "Zhang", ""), LocalDate.of(1989, 6, 4), "Beijing", "E43241345", "China"),
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1,
                 Collections.singletonList("China"), "CA850", false),
             new BelongingDeclaration(false, false, false, false),
@@ -61,7 +61,7 @@ public class App {
             new HashMap<>(), false, false, false, false, false, false
         );
 
-        SupplementalInformation childSupplemental = new SupplementalInformation(new HashMap<EntryForm, SupplementalInformation>() {{
+        SupplementalInformation childSupplemental = new SupplementalInformation(new HashMap<EntryApplication, SupplementalInformation>() {{
             put(parent, parentSupplemental);
         }}, false, false, false, false, false, false);
 
@@ -69,7 +69,7 @@ public class App {
         validate(child, childSupplemental);
     }
 
-    private static void validate(EntryForm child, SupplementalInformation childSupplemental) {
+    private static void validate(EntryApplication child, SupplementalInformation childSupplemental) {
         printForm(child);
         try {
             if (child.isApproved(childSupplemental)) {
@@ -80,7 +80,7 @@ public class App {
         }
     }
 
-    private static void printForm(EntryForm form) {
+    private static void printForm(EntryApplication form) {
         System.out.println("Application: " + form.getPassport().getName().getFirstName() + " " + form.getPassport().getName().getMiddleName() + " " + form.getPassport().getName().getLastName());
         System.out.println("Birthday: " + form.getPassport().getBirthday().toString());
         System.out.println("US Address: " + form.getItinerary().getAddress().getStreet() + " " + form.getItinerary().getAddress().getCity() + " " + form.getItinerary().getAddress().getState());

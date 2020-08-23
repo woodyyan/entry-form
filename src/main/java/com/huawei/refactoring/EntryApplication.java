@@ -8,7 +8,7 @@ import com.huawei.refactoring.form.ValuableArticle;
 import java.time.LocalDate;
 import java.time.Period;
 
-public class EntryForm {
+public class EntryApplication {
     private final Passport passport;
     private final Itinerary itinerary;
     private final ValuableArticle valuableArticle;
@@ -17,10 +17,10 @@ public class EntryForm {
     //表格问题 12
     private final boolean isClosedLivingStock;
 
-    public EntryForm(Passport passport, Itinerary itinerary,
-                     BelongingDeclaration belongingDeclaration,
-                     ValuableArticle valuableArticle,
-                     boolean isClosedLivingStock) {
+    public EntryApplication(Passport passport, Itinerary itinerary,
+                            BelongingDeclaration belongingDeclaration,
+                            ValuableArticle valuableArticle,
+                            boolean isClosedLivingStock) {
         this.passport = passport;
         this.itinerary = itinerary;
         this.belongingDeclaration = belongingDeclaration;
@@ -52,7 +52,7 @@ public class EntryForm {
             if (this.itinerary.getNumberOfFamilyMember() == 0) throw new RejectedException("under 18 needs an adult");
             boolean staySame = true;
             boolean found = false;
-            for (EntryForm form : supplementalInformation.getFamilyMembers()) {
+            for (EntryApplication form : supplementalInformation.getFamilyMembers()) {
                 if (Period.between(form.getPassport().getBirthday(), LocalDate.now()).getYears() > 18) {
                     found = true;
 
@@ -71,7 +71,7 @@ public class EntryForm {
         //全家出行总财产
         double total = this.valuableArticle.getTotalValueOfAllArticle();
         if (this.itinerary.getNumberOfFamilyMember() > 0) {
-            for (EntryForm form : supplementalInformation.getFamilyMembers()) {
+            for (EntryApplication form : supplementalInformation.getFamilyMembers()) {
                 total += form.getValuableArticle().getTotalValueOfAllArticle();
             }
         }
@@ -91,7 +91,7 @@ public class EntryForm {
         //如果18岁以下，监护人需要被允许入境
         if (years < 18) {
             boolean found = false;
-            for (EntryForm form : supplementalInformation.getFamilyMembers()) {
+            for (EntryApplication form : supplementalInformation.getFamilyMembers()) {
                 if (Period.between(form.getPassport().getBirthday(), LocalDate.now()).getYears() > 18) {
                     try {
                         if (form.isApproved(supplementalInformation.getFamilyMemberSupplementalInformation(form)))

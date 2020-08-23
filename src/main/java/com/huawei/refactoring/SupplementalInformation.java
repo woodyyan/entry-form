@@ -4,14 +4,14 @@ import java.util.Map;
 import java.util.Set;
 
 public class SupplementalInformation {
-    private Map<EntryForm, SupplementalInformation> familyMembers;
+    private Map<EntryApplication, SupplementalInformation> familyMembers;
     private boolean fruitsOK;
     private boolean soilOK;
     private boolean meatsOK;
     private boolean diseaseAgentsOK;
     private boolean carrying10KOK;
 
-    public SupplementalInformation(Map<EntryForm, SupplementalInformation> familyMembers, boolean fruitsOK, boolean soilOK, boolean meatsOK, boolean diseaseAgentsOK, boolean carrying10KOK, boolean isClosedStockingOK) {
+    public SupplementalInformation(Map<EntryApplication, SupplementalInformation> familyMembers, boolean fruitsOK, boolean soilOK, boolean meatsOK, boolean diseaseAgentsOK, boolean carrying10KOK, boolean isClosedStockingOK) {
         this.familyMembers = familyMembers;
         this.fruitsOK = fruitsOK;
         this.soilOK = soilOK;
@@ -23,11 +23,11 @@ public class SupplementalInformation {
 
     private boolean isClosedStockingOK;
 
-    public Set<EntryForm> getFamilyMembers() {
+    public Set<EntryApplication> getFamilyMembers() {
         return familyMembers.keySet();
     }
 
-    public SupplementalInformation getFamilyMemberSupplementalInformation(EntryForm member) {
+    public SupplementalInformation getFamilyMemberSupplementalInformation(EntryApplication member) {
         return familyMembers.get(member);
     }
 
