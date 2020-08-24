@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import java.util.Collections;
 
+import static com.huawei.refactoring.TestData.ALL_OK_SUPPLEMENTAL;
 import static com.huawei.refactoring.TestData.NOTHING_TO_DECLARATION;
 import static com.huawei.refactoring.TestData.ZHANG_SAN_PASSPORT;
 
@@ -19,6 +20,6 @@ public class ValueOfCommercialsMerchandiseShouldNotExceedLimitTest {
             new Itinerary(new Address("200 Main Street", "Chicago", "IL"), 1, Collections.singletonList("China"), "CA850", true),
             NOTHING_TO_DECLARATION,
             new ValuableArticle(false, true, 401), false);
-        new ValueOfCommercialsMerchandiseShouldNotExceedLimit().validate(entryApplication, 400);
+        new ValueOfCommercialsMerchandiseShouldNotExceedLimit(400).validate(entryApplication, ALL_OK_SUPPLEMENTAL);
     }
 }

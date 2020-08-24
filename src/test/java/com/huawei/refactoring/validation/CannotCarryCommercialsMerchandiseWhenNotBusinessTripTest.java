@@ -5,6 +5,7 @@ import com.huawei.refactoring.RejectedException;
 import com.huawei.refactoring.form.ValuableArticle;
 import org.junit.Test;
 
+import static com.huawei.refactoring.TestData.ALL_OK_SUPPLEMENTAL;
 import static com.huawei.refactoring.TestData.CHICAGO_NON_BUSINESS_ITINERARY;
 import static com.huawei.refactoring.TestData.NOTHING_TO_DECLARATION;
 import static com.huawei.refactoring.TestData.ZHANG_SAN_PASSPORT;
@@ -17,6 +18,6 @@ public class CannotCarryCommercialsMerchandiseWhenNotBusinessTripTest {
             CHICAGO_NON_BUSINESS_ITINERARY,
             NOTHING_TO_DECLARATION,
             new ValuableArticle(false, true, 100.0), false);
-        new CannotCarryCommercialsMerchandiseWhenNotBusinessTrip().validate(entryApplication);
+        new CannotCarryCommercialsMerchandiseWhenNotBusinessTrip().validate(entryApplication, ALL_OK_SUPPLEMENTAL);
     }
 }

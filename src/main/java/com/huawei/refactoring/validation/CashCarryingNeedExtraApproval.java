@@ -4,7 +4,8 @@ import com.huawei.refactoring.EntryApplication;
 import com.huawei.refactoring.RejectedException;
 import com.huawei.refactoring.SupplementalInformation;
 
-public class CashCarryingNeedExtraApproval {
+public class CashCarryingNeedExtraApproval implements ApprovalRule {
+    @Override
     public void validate(EntryApplication entryApplication, SupplementalInformation supplementalInformation) {
         //是否允许带10K现金
         if (entryApplication.getValuableArticle().isCarrying10KCash() && !supplementalInformation.isCarrying10KOK())

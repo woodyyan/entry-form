@@ -21,7 +21,7 @@ public class TotalValueOfAllArticlesShouldNotExceedLimitsTest {
             NOTHING_TO_DECLARATION,
             new ValuableArticle(true, false, 2001.0), false);
 
-        new TotalValueOfAllArticlesShouldNotExceedLimits().validate(businessEntry, ALL_OK_SUPPLEMENTAL, 2000, 500);
+        new TotalValueOfAllArticlesShouldNotExceedLimits(2000, 500).validate(businessEntry, ALL_OK_SUPPLEMENTAL);
     }
 
     @Test(expected = RejectedException.class)
@@ -31,6 +31,6 @@ public class TotalValueOfAllArticlesShouldNotExceedLimitsTest {
             NOTHING_TO_DECLARATION,
             new ValuableArticle(false, false, 501), false);
 
-        new TotalValueOfAllArticlesShouldNotExceedLimits().validate(businessEntry, ALL_OK_SUPPLEMENTAL, 2000, 500);
+        new TotalValueOfAllArticlesShouldNotExceedLimits(2000, 500).validate(businessEntry, ALL_OK_SUPPLEMENTAL);
     }
 }

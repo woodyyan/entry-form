@@ -7,7 +7,7 @@ import com.huawei.refactoring.SupplementalInformation;
 import java.time.LocalDate;
 import java.time.Period;
 
-public class JuvenilesNeedAdultCompanion {
+public class JuvenilesNeedAdultCompanion implements ApprovalRule {
 
     public void validate(EntryApplication entryApplication, SupplementalInformation supplementalInformation) {
         if (Period.between(entryApplication.getPassport().getBirthday(), LocalDate.now()).getYears() < 18) {
