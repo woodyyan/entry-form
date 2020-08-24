@@ -5,7 +5,7 @@ import com.huawei.refactoring.RejectedException;
 import com.huawei.refactoring.SupplementalInformation;
 
 public class TotalValueOfAllArticlesShouldNotExceedLimits {
-    public void totalValueOfAllArticlesShouldNotExceedLimits(EntryApplication entryApplication, SupplementalInformation supplementalInformation, int businessTrip, int nonBusinessTrip) {
+    public void validate(EntryApplication entryApplication, SupplementalInformation supplementalInformation, int businessTrip, int nonBusinessTrip) {
         //全家出行总财产
         double total = entryApplication.getValuableArticle().getTotalValueOfAllArticle();
         if (entryApplication.getItinerary().getNumberOfFamilyMember() > 0) {

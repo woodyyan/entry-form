@@ -9,7 +9,7 @@ import java.time.Period;
 
 public class JuvenilesNeedAdultCompanion {
 
-    public void juvenilesNeedAdultCompanion(EntryApplication entryApplication, SupplementalInformation supplementalInformation) {
+    public void validate(EntryApplication entryApplication, SupplementalInformation supplementalInformation) {
         if (Period.between(entryApplication.getPassport().getBirthday(), LocalDate.now()).getYears() < 18) {
             if (entryApplication.getItinerary().getNumberOfFamilyMember() == 0)
                 throw new RejectedException("under 18 needs an adult");

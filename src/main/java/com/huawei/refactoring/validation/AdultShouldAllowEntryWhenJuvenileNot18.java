@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.time.Period;
 
 public class AdultShouldAllowEntryWhenJuvenileNot18 {
-    public void adultShouldAllowEntryWhenJuvenileNot18(EntryApplication entryApplication, SupplementalInformation supplementalInformation) {
+    public void validate(EntryApplication entryApplication, SupplementalInformation supplementalInformation) {
         //如果18岁以下，监护人需要被允许入境
         if (Period.between(entryApplication.getPassport().getBirthday(), LocalDate.now()).getYears() < 18) {
             boolean found = false;

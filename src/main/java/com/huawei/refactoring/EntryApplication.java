@@ -52,12 +52,12 @@ public class EntryApplication {
     }
 
     public boolean isApproved(SupplementalInformation supplementalInformation) {
-        new JuvenilesNeedAdultCompanion().juvenilesNeedAdultCompanion(this, supplementalInformation);
-        new TotalValueOfAllArticlesShouldNotExceedLimits().totalValueOfAllArticlesShouldNotExceedLimits(this, supplementalInformation, 2000, 500);
-        new CashCarryingNeedExtraApproval().cashCarryingNeedExtraApproval(this, supplementalInformation);
-        new AdultShouldAllowEntryWhenJuvenileNot18().adultShouldAllowEntryWhenJuvenileNot18(this, supplementalInformation);
-        new ValueOfCommercialsMerchandiseShouldNotExceedLimit().valueOfCommercialsMerchandiseShouldNotExceedLimit(this, 400);
-        new CannotCarryCommercialsMerchandiseWhenNotBusinessTrip().cannotCarryCommercialsMerchandiseWhenNotBusinessTrip(this);
+        new JuvenilesNeedAdultCompanion().validate(this, supplementalInformation);
+        new TotalValueOfAllArticlesShouldNotExceedLimits().validate(this, supplementalInformation, 2000, 500);
+        new CashCarryingNeedExtraApproval().validate(this, supplementalInformation);
+        new AdultShouldAllowEntryWhenJuvenileNot18().validate(this, supplementalInformation);
+        new ValueOfCommercialsMerchandiseShouldNotExceedLimit().validate(this, 400);
+        new CannotCarryCommercialsMerchandiseWhenNotBusinessTrip().validate(this);
         return true;
     }
 }
