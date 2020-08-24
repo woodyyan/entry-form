@@ -4,12 +4,7 @@ import com.huawei.refactoring.form.BelongingDeclaration;
 import com.huawei.refactoring.form.Itinerary;
 import com.huawei.refactoring.form.Passport;
 import com.huawei.refactoring.form.ValuableArticle;
-import com.huawei.refactoring.validation.AdultShouldAllowEntryWhenJuvenileNot18;
-import com.huawei.refactoring.validation.CannotCarryCommercialsMerchandiseWhenNotBusinessTrip;
-import com.huawei.refactoring.validation.CashCarryingNeedExtraApproval;
-import com.huawei.refactoring.validation.JuvenilesNeedAdultCompanion;
-import com.huawei.refactoring.validation.TotalValueOfAllArticlesShouldNotExceedLimits;
-import com.huawei.refactoring.validation.ValueOfCommercialsMerchandiseShouldNotExceedLimit;
+import com.huawei.refactoring.validation.ApprovalRule;
 
 public class EntryApplication {
 
@@ -52,12 +47,9 @@ public class EntryApplication {
     }
 
     public boolean isApproved(SupplementalInformation supplementalInformation) {
-        new JuvenilesNeedAdultCompanion().validate(this, supplementalInformation);
-        new TotalValueOfAllArticlesShouldNotExceedLimits(2000, 500).validate(this, supplementalInformation);
-        new CashCarryingNeedExtraApproval().validate(this, supplementalInformation);
-        new AdultShouldAllowEntryWhenJuvenileNot18().validate(this, supplementalInformation);
-        new ValueOfCommercialsMerchandiseShouldNotExceedLimit(400).validate(this, supplementalInformation);
-        new CannotCarryCommercialsMerchandiseWhenNotBusinessTrip().validate(this, supplementalInformation);
+        for (ApprovalRule approvalRule : ApprovalRules.CURRENT) {
+            approvalRule.validate(this, supplementalInformation);
+        }
         return true;
     }
 }
